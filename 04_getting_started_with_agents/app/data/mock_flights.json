@@ -1,0 +1,50 @@
+{
+  "Amsterdam-Tokyo": [
+    {
+      "airline": "Workshop Air",
+      "departure": "09:30",
+      "arrival": "06:50 +1",
+      "stops": 1,
+      "price_eur": 820
+    },
+    {
+      "airline": "Demo Airways",
+      "departure": "14:10",
+      "arrival": "11:40 +1",
+      "stops": 0,
+      "price_eur": 1180
+    }
+  ],
+  "Amsterdam-Barcelona": [
+    {
+      "airline": "Workshop Air",
+      "departure": "07:20",
+      "arrival": "09:35",
+      "stops": 0,
+      "price_eur": 145
+    },
+    {
+      "airline": "Budget Demo",
+      "departure": "18:45",
+      "arrival": "21:00",
+      "stops": 0,
+      "price_eur": 95
+    }
+  ],
+  "Amsterdam-Lisbon": [
+    {
+      "airline": "Demo Airways",
+      "departure": "10:15",
+      "arrival": "12:25",
+      "stops": 0,
+      "price_eur": 180
+    },
+    {
+      "airline": "Workshop Air",
+      "departure": "16:30",
+      "arrival": "18:40",
+      "stops": 0,
+      "price_eur": 210
+    }
+  ]
+}

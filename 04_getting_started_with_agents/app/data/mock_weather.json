@@ -1,0 +1,27 @@
+{
+  "Amsterdam": {
+    "condition": "cloudy with light rain",
+    "temperature_c": 14,
+    "travel_note": "Pack a rain jacket and choose indoor backup activities."
+  },
+  "Barcelona": {
+    "condition": "sunny",
+    "temperature_c": 24,
+    "travel_note": "Good walking weather, but bring sunscreen."
+  },
+  "Berlin": {
+    "condition": "cool and windy",
+    "temperature_c": 12,
+    "travel_note": "Plan museum stops between outdoor walks."
+  },
+  "Lisbon": {
+    "condition": "warm and clear",
+    "temperature_c": 23,
+    "travel_note": "Comfortable for viewpoints and evening walks."
+  },
+  "Tokyo": {
+    "condition": "humid with afternoon showers",
+    "temperature_c": 27,
+    "travel_note": "Start early and keep flexible indoor options."
+  }
+}
