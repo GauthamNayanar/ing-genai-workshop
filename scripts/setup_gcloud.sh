@@ -1,7 +1,32 @@
 #!/bin/bash
 
-# Exit immediately if a command exits with a non-zero status
-set -e
+set -euo pipefail
+
+PROJECT_ID="${1:-}"
+if [ -z "$PROJECT_ID" ]; then
+    echo "Usage: bash $0 <PROJECT_ID>"
+    exit 1
+fi
+echo "Using project ID: $PROJECT_ID"
+
+# Install gcloud CLI if not already installed
+echo "Checking for gcloud CLI..."
+if command -v gcloud &> /dev/null; then
+    echo "gcloud CLI is already installed."
+else
+    echo "gcloud CLI not found. Installing..."
+    curl -sSL https://sdk.cloud.google.com | bash
+    # Reload shell environment
+    if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then
+        source "$HOME/google-cloud-sdk/path.bash.inc"
+    fi
+    echo "gcloud CLI installed successfully."
+fi
+
+# Set the active project explicitly
+echo "Setting active project to: $PROJECT_ID"
+gcloud config set project "$PROJECT_ID"
+
 
 # 0. Download the login config JSON from WIF (replace the following command with the actual download command if needed)
 echo "[0/3] Downloading one-day-sandbox-gcloud.json from WIF..."
@@ -18,6 +43,9 @@ gcloud auth application-default login --login-config=one-day-sandbox-gcloud.json
 # 3. Set quota project again
 echo "[3/3] Setting quota project..."
 gcloud auth application-default set-quota-project $(gcloud config get-value project)
+
+echo "Enabling required APIs..."
+gcloud services enable aiplatform.googleapis.com --project="$PROJECT_ID"
 
 echo "All authentication steps completed successfully."
 
