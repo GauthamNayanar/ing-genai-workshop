@@ -3,7 +3,6 @@ from prompt_toolkit import prompt, HTML
 from prompt_toolkit.completion import WordCompleter
 
 from agent import ask_agent
-from tools import get_weather, search_flights
 from utils import format_response
 
 # Example travel topics for autocompletion
@@ -15,7 +14,7 @@ travel_completer = WordCompleter([
 ], ignore_case=True)
 
 def main():
-    parser = argparse.ArgumentParser(description="Travel Assistant")
+    parser = argparse.ArgumentParser(description="ADK Multi-Agent Travel Assistant")
     parser.add_argument("prompt", type=str, nargs="?", help="User travel query prompt")
     args = parser.parse_args()
 
@@ -24,11 +23,8 @@ def main():
     else:
         user_prompt = args.prompt
 
-    print("\n=== Travel Assistant ===\n")    
-    response = ask_agent(
-        user_prompt,
-        tools=[get_weather, search_flights],
-    )
+    print("\n=== ADK Multi-Agent Travel Assistant ===\n")
+    response = ask_agent(user_prompt)
     format_response(response)
     print("\n\n")
 

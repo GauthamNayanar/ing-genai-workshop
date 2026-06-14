@@ -1,0 +1,54 @@
+[
+  {
+    "id": "single_specialist_weather",
+    "prompt": "I am visiting Lisbon this weekend. What should I pack?",
+    "suggested_root_agent": "weather_agent",
+    "expected_agents": ["weather_specialist"],
+    "expected_behavior": "Use weather data and give packing advice."
+  },
+  {
+    "id": "single_specialist_flight",
+    "prompt": "Is there a flight from Amsterdam to Lisbon?",
+    "suggested_root_agent": "flight_agent",
+    "expected_agents": ["flight_specialist"],
+    "expected_behavior": "Use flight data and summarize available options."
+  },
+  {
+    "id": "single_specialist_budget",
+    "prompt": "What is a student daily budget for Lisbon?",
+    "suggested_root_agent": "budget_agent",
+    "expected_agents": ["budget_specialist"],
+    "expected_behavior": "Estimate a daily budget and explain assumptions."
+  },
+  {
+    "id": "sequential_full_plan",
+    "prompt": "I am planning a weekend work trip from Amsterdam to Lisbon. What should I pack, is there a flight, and what budget should I expect?",
+    "suggested_root_agent": "sequential_travel_pipeline",
+    "expected_agents": [
+      "weather_specialist",
+      "flight_specialist",
+      "budget_specialist",
+      "sequential_synthesizer"
+    ],
+    "expected_behavior": "Run specialists in order and synthesize all reports."
+  },
+  {
+    "id": "parallel_full_plan",
+    "prompt": "I am planning a weekend work trip from Amsterdam to Lisbon. What should I pack, is there a flight, and what budget should I expect?",
+    "suggested_root_agent": "parallel_travel_pipeline",
+    "expected_agents": [
+      "weather_specialist",
+      "flight_specialist",
+      "budget_specialist",
+      "parallel_synthesizer"
+    ],
+    "expected_behavior": "Run independent research in parallel and synthesize all reports."
+  },
+  {
+    "id": "architecture_choice",
+    "prompt": "First check whether my request has origin, destination, purpose, and budget. Only then search flights.",
+    "suggested_root_agent": "sequential pipeline with a validation agent first",
+    "expected_agents": ["validation_specialist", "flight_specialist"],
+    "expected_behavior": "Use a sequential design because flight search depends on validation."
+  }
+]

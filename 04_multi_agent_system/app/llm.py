@@ -1,13 +1,33 @@
+"""Legacy direct-LLM helper kept for comparison with the multi-agent exercise.
+
+The exercise app uses agent.py. Learners should edit agent.py and tools.py.
+"""
+
+import os
+
 from google import genai
 from google.genai.types import GenerateContentConfig
 
 
-PROJECT_ID = ""  # <-- Replace with your project ID
+PROJECT_ID = ""  # Optional: replace with your project ID, or set GOOGLE_CLOUD_PROJECT.
 LOCATION = "europe-west4"
 MODEL_NAME = "gemini-2.5-flash"
 
 
-client = genai.Client(vertexai=True, project=PROJECT_ID, location=LOCATION)
+def _client() -> genai.Client:
+    """Create a Vertex AI client using ADC/WIF credentials, not API keys."""
+    project_id = PROJECT_ID or os.environ.get("GOOGLE_CLOUD_PROJECT")
+    if not project_id:
+        raise RuntimeError(
+            "Set PROJECT_ID in llm.py or export GOOGLE_CLOUD_PROJECT. "
+            "This workshop uses Vertex AI with ADC/WIF credentials, not API keys."
+        )
+
+    return genai.Client(
+        vertexai=True,
+        project=project_id,
+        location=LOCATION,
+    )
 
 
 # Set a default system message for the model
@@ -36,7 +56,7 @@ def ask_llm(
         top_k=top_k,                            # <-- Limits sampling to the top K most likely tokens at each step
         tools=tools,                            # <-- Pass the list of tools the model can use (if any)
     )
-    response = client.models.generate_content(
+    response = _client().models.generate_content(
         model=MODEL_NAME,
         contents=prompt,
         config=config,
