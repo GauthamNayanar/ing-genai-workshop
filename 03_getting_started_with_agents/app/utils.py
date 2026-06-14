@@ -9,7 +9,7 @@ console = Console()
 
 def format_response(response: str):
     print("\n")
-    console.print(Panel.fit("LLM Travel Assistant", style="bold cyan"))
+    console.print(Panel.fit("ADK Travel Assistant", style="bold cyan"))
 
     # Render full markdown properly
     console.print(Markdown(response))

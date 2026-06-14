@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-venv_dir="ing-genai-workshop"
+venv_dir=".venv"
 requirements_file="requirements.txt"
 venv_python="$venv_dir/bin/python"
 

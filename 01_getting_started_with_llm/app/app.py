@@ -15,7 +15,7 @@ travel_completer = WordCompleter([
 ], ignore_case=True)
 
 def main():
-    parser = argparse.ArgumentParser(description="LLM Travel Assistant")
+    parser = argparse.ArgumentParser(description="Travel Assistant")
     parser.add_argument("prompt", type=str, nargs="?", help="User travel query prompt")
     args = parser.parse_args()
 
@@ -24,7 +24,7 @@ def main():
     else:
         user_prompt = args.prompt
 
-    print("\n=== LLM Travel Assistant ===\n")
+    print("\n=== Travel Assistant ===\n")
     response = ask_llm(
         user_prompt,
     )

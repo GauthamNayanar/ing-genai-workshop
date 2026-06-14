@@ -1,8 +1,14 @@
 import argparse
+import sys
+from pathlib import Path
+
+from google.adk.tools.mcp_tool.mcp_toolset import McpToolset, StdioConnectionParams
+from mcp import StdioServerParameters
 from prompt_toolkit import prompt, HTML
 from prompt_toolkit.completion import WordCompleter
 
-from llm import ask_llm
+from agent import ask_agent
+from tools import get_weather
 from utils import format_response
 
 # Example travel topics for autocompletion
@@ -13,8 +19,15 @@ travel_completer = WordCompleter([
     "Estimate daily budget in Amsterdam",
 ], ignore_case=True)
 
+SERVER_SCRIPT = Path(__file__).parent / "server.py"
+
+# TODO: Create a McpToolset instance for the MCP server
+mcp_tools = None
+
+local_tools = [get_weather]
+
 def main():
-    parser = argparse.ArgumentParser(description="LLM Travel Assistant")
+    parser = argparse.ArgumentParser(description="Travel Assistant")
     parser.add_argument("prompt", type=str, nargs="?", help="User travel query prompt")
     args = parser.parse_args()
 
@@ -23,11 +36,14 @@ def main():
     else:
         user_prompt = args.prompt
 
-    print("\n=== LLM Travel Assistant ===\n")
-     # Update the code to use 
-     # normal tool calls and mcp server tool calls
-    response = ask_llm(None)
-    
+    print("\n=== Travel Assistant ===\n")    
+    response = ask_agent(
+        user_prompt,
+        tools=[
+            mcp_tools,
+            *local_tools,
+        ],
+    )
     format_response(response)
     print("\n\n")
 

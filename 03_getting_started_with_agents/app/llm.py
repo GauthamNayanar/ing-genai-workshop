@@ -10,8 +10,6 @@ MODEL_NAME = "gemini-2.5-flash"
 client = genai.Client(vertexai=True, project=PROJECT_ID, location=LOCATION)
 
 
-# Select the model
-MODEL_NAME = "gemini-2.5-flash"
 # Set a default system message for the model
 SYSTEM_MESSAGE = """
     You are a helpful travel assistant.

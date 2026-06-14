@@ -2,7 +2,7 @@ import argparse
 from prompt_toolkit import prompt, HTML
 from prompt_toolkit.completion import WordCompleter
 
-from llm import ask_llm
+from agent import ask_agent
 from tools import get_weather, search_flights
 from utils import format_response
 
@@ -15,7 +15,7 @@ travel_completer = WordCompleter([
 ], ignore_case=True)
 
 def main():
-    parser = argparse.ArgumentParser(description="LLM Travel Assistant")
+    parser = argparse.ArgumentParser(description="Travel Assistant")
     parser.add_argument("prompt", type=str, nargs="?", help="User travel query prompt")
     args = parser.parse_args()
 
@@ -24,8 +24,8 @@ def main():
     else:
         user_prompt = args.prompt
 
-    print("\n=== LLM Travel Assistant ===\n")    
-    response = ask_llm(
+    print("\n=== Travel Assistant ===\n")    
+    response = ask_agent(
         user_prompt,
         tools=[get_weather, search_flights],
     )

@@ -2,22 +2,14 @@ import json
 import sys
 from pathlib import Path
 
-from mcp import ClientSession, StdioServerParameters, stdio_client
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("Travel MCP Server")
 
 
-def _to_text(result: object) -> str:
-    content = getattr(result, "content", None)
-    if not content:
-        return str(result)
-
-    return "".join(
-        getattr(item, "text", str(item)) for item in content
-    )
-
-
+# General helpers
 def _normalize_location(value: str) -> str:
     return value.strip().title()
 
@@ -57,24 +49,10 @@ async def list_tools(server_script="server.py"):
     return await _with_session(server_script, run)
 
 
-async def call_tool(name, args=None, server_script="server.py"):
-    args = args or {}
-
-    async def run(session):
-        result = await session.call_tool(name, args)
-        try:
-            return json.loads(_to_text(result))
-        except json.JSONDecodeError:
-            return _to_text(result)
-
-    return await _with_session(server_script, run)
-
-
 # load mock data
 def _load_mock_data() -> dict:
-    """Load mock flights data from the workshop data folder."""
-    base_dir = Path(__file__).resolve().parents[2]
-    data_dir = base_dir / "05_mcp" / "app" / "data"
+    """Load mock travel data from the workshop data folder."""
+    data_dir = Path(__file__).parent / "data"
 
     flights_file = data_dir / "mock_flights.json"
 
@@ -83,7 +61,6 @@ def _load_mock_data() -> dict:
             flight_data = json.load(flights_handle)
 
         return flight_data
-
     raise FileNotFoundError(
         f"Could not find mock data files in {data_dir}"
     )
@@ -97,8 +74,8 @@ def get_server_info() -> dict:
     """Return basic information about this MCP server."""
     return {
         "name": "Travel MCP Server",
-        "purpose": "Demo server exposing weather and flight search tools",
-        "tools": ["get_weather", "search_flights"],
+        "purpose": "Demo server exposing flight search tools",
+        "tools": ["search_flights"],
     }
 
 
@@ -111,8 +88,10 @@ def search_flights(origin: str, destination: str) -> list:
 
     return FLIGHT_DATA.get(route, [])
 
-
-# def add_your_own_too()
+# TODO: Create and add your own tool here.
+# Don't forget to add it to the server info tool above so agents can discover it!
+def add_your_own_tool():
+    pass
 
 
 if __name__ == "__main__":

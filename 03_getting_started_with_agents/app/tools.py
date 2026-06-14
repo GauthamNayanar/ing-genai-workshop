@@ -32,5 +32,11 @@ def search_flights(origin: str, destination: str) -> list:
 
 
 def your_tool():
-    """Define your own tool here!"""
+    """Define your own tool here!
+
+    Ideas:
+    - estimate_daily_budget(city, style)
+    - suggest_airport_transfer(city)
+    - get_visa_requirements(passport_country, destination_country)
+    """
     pass
