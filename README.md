@@ -24,6 +24,9 @@ source .venv/bin/activate
 - `01_getting_started_with_llm/` — basic direct LLM usage with `google.genai`.
   - Teaches prompt construction, system instructions, and a simple `ask_llm()` wrapper.
 
+- `02_prompt_engineering_structured_output/` — prompt engineering with `google.genai`.
+  - Teaches prompt engineering, structured output, and best practices. 
+
 - `03_getting_started_with_agents/` — ADK agent with tool usage.
   - Shows how to build an agent and pass tools.
 
