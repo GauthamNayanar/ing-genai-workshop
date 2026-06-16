@@ -1,6 +1,7 @@
 # ing-genai-workshop
 
-A set of hands-on workshop exercises for building Google GenAI and ADK travel assistant demos.
+Practical exercises for the GenAI Workshop run by ING Analytics
+
 
 ## Setup
 
