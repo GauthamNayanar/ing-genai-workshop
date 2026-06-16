@@ -11,15 +11,15 @@ echo "Using project ID: $PROJECT_ID"
 
 # Install gcloud CLI if not already installed
 echo "Checking for gcloud CLI..."
-if command -v gcloud &> /dev/null; then
+if command -v gcloud >/dev/null 2>&1; then
     echo "gcloud CLI is already installed."
 else
     echo "gcloud CLI not found. Installing..."
     curl -sSL https://sdk.cloud.google.com | bash
-    # Reload shell environment
-    if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then
-        source "$HOME/google-cloud-sdk/path.bash.inc"
-    fi
+
+    export PATH="$HOME/google-cloud-sdk/bin:$PATH"
+
+    echo 'export PATH="$HOME/google-cloud-sdk/bin:$PATH"' >> ~/.bashrc
     echo "gcloud CLI installed successfully."
 fi
 
